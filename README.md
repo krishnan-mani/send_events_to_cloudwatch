@@ -19,14 +19,7 @@ How
 $ rake -T
 rake put_log_events[log_line,pattern,min_value,max_value,number_of_items,log_group_name,region]
 
-$ rake put_log_events[ \
-  'abc foo_placeholder def', \ # a text template containing a placeholder
-  'foo_placeholder', \ # the placeholder that will be replaced with some random numbers
-  10, \ # the lower bound on the random integer
-  20, \ # the upper bound on the random integer
-  100, \ # the number of log events to be generated
-  'test-log-group', \ # the name of a log group that has been created earlier
-  'eu-west-1']  # the AWS region that the CloudWatch log group resides in
+$ rake put_log_events['abc foo_placeholder def','foo_placeholder',10,20,100,'test-log-group','eu-west-1']
 
 ```
 
