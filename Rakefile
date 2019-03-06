@@ -7,12 +7,12 @@ task :put_log_events, [:log_line, :pattern, :min_value, :max_value, :number_of_i
   pattern = args.pattern || ENV['PATTERN']
   min_value = (args.min_value || ENV['MIN_VALUE']).to_i
   max_value = (args.max_value || ENV['MAX_VALUE']).to_i
-  number_of_items = (args.number_of_items || ENV['NUMBER_OF_ITEMS']).to_i
+  number_of_log_events = (args.number_of_items || ENV['NUMBER_OF_LOG_EVENTS']).to_i
 
   log_group_name = args.log_group_name || ENV['LOG_GROUP_NAME']
   region = args.region || ENV['AWS_REGION']
 
-  log_events_data = LogEventsGenerator.new(log_line, pattern).get_log_events(number_of_items, min_value, max_value)
+  log_events_data = LogEventsGenerator.new(log_line, pattern).get_log_events(number_of_log_events, min_value, max_value)
   log_events, log_stream_name = log_events_data[:log_events], log_events_data[:log_stream_name]
   puts LogEventsPublisher.new(region).put_log_events(log_events, log_group_name, log_stream_name)
 

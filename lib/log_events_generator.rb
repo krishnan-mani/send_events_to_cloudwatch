@@ -10,9 +10,9 @@ class LogEventsGenerator
     @random = Random.new
   end
 
-  def get_log_events(number_of_items, min_value, max_value)
+  def get_log_events(number_of_log_events, min_value, max_value)
     seed_timestamp_milliseconds = Time.now.to_i * 1000
-    number_of_log_events = [number_of_items, MAXIMUM_LOG_EVENTS_PER_BATCH].min
+    number_of_log_events = [number_of_log_events, MAXIMUM_LOG_EVENTS_PER_BATCH].min
     log_events = 1.upto(number_of_log_events).collect {|n| LogEvent.new(seed_timestamp_milliseconds + n, "#{get_message(min_value, max_value)}").to_event}
     {log_stream_name: "synthetic-#{seed_timestamp_milliseconds}", log_events: log_events}
   end
