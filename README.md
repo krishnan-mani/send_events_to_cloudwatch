@@ -49,7 +49,7 @@ $ cp env.list.example env.list
 
 # Edit env.list and provide the values, including AWS credentials, etc.
 
-$ docker run --env-file env.list send-events-to-cloudwatch bundle exec rake put_log_events
+$ docker run --rm --env-file env.list send-events-to-cloudwatch bundle exec rake put_log_events
 
 ```
 
