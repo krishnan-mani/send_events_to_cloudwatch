@@ -37,3 +37,19 @@ The response from the API call `put_log_events` is printed. This looks like the 
 
 {:next_sequence_token=>"49593595059719128983591384647393373584404458978366498066", :rejected_log_events_info=>nil}
 ```  
+
+How (with Docker)
+---
+
+Remember! Do not check-in credentials into version control or bake into Docker images!!!
+
+```
+$ docker build . -t send-events-to-cloudwatch
+$ cp env.list.example env.list
+
+# Edit env.list and provide the values, including AWS credentials, etc.
+
+$ docker run --env-file env.list send-events-to-cloudwatch bundle exec rake put_log_events
+
+```
+
