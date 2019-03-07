@@ -69,7 +69,7 @@ $ cp env.list.example env.list
 $ docker run \
     --rm \
     --env-file env.list \
-    kmdemos:send-events-to-cloudwatch:1.0 \
+    kmdemos/send-events-to-cloudwatch:1.0 \
     bundle exec rake put_log_events
 
 ```
