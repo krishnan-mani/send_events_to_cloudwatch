@@ -24,7 +24,7 @@ $ rake put_log_events['abc foo_placeholder def','foo_placeholder',50,70,30,'test
 ```
 
 This will generate 30 log lines (a.k.a. events) that each look like `abc <N> def`, 
-with N substituted by a randomly chosen integer between the lower bound (10) and upper bound (20),
+with N substituted by a randomly chosen integer between the lower bound (50) and upper bound (70),
 and will publish these log events into the named log group in the specified AWS region.
 
 Each log event will have a timestamp beginning at 50 minutes in the past, advancing by 1 minute on each log event.
