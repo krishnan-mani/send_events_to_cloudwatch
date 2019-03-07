@@ -57,7 +57,7 @@ $ docker build . -t send-events-to-cloudwatch
 ```
 
 - Run a Docker container from the publicly-available image 
-    - Please see `env.list.example` that illustrates the environment variables to be configured to run the container
+    - Please see [`env.list.example`](env.list.example) that illustrates the environment variables to be configured to run the container
     - _Remember_! Do NOT check-in credentials into version control or bake into Docker images!!!
 
 ```
