@@ -18,9 +18,9 @@ How
 ```bash
 
 $ rake -T
-rake put_log_events[log_line,pattern,min_value,max_value,number_of_items,log_group_name,region]
+rake put_log_events[log_line,pattern,starting_minutes_ago,min_value,max_value,number_of_items,log_group_name,region]
 
-$ rake put_log_events['abc foo_placeholder def','foo_placeholder',50,70,30,'test-log-group','eu-west-1']
+$ rake put_log_events['abc foo_placeholder def','foo_placeholder',15,50,70,30,'test-log-group','eu-west-1']
 
 ```
 
@@ -28,7 +28,7 @@ This will generate 30 log lines (a.k.a. events) that each look like `abc <N> def
 with N substituted by a randomly chosen integer between the lower bound (50) and upper bound (70),
 and will publish these log events into the named log group in the specified AWS region.
 
-Each log event will have a timestamp beginning at 50 minutes in the past, advancing by 1 minute on each log event.
+Each log event will have a timestamp beginning at 15 minutes in the past, advancing by 1 minute on each log event.
 A maximum of 40 log events can be generated.
 
 To understand limitations on timestamp of log events that can be published to CloudWatch Logs, see [here](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/CloudWatchLogs/Client.html#put_log_events-instance_method)
@@ -69,7 +69,7 @@ $ cp env.list.example env.list
 $ docker run \
     --rm \
     --env-file env.list \
-    kmdemos/send-events-to-cloudwatch:1.0 \
+    kmdemos/send-events-to-cloudwatch:2.0 \
     bundle exec rake put_log_events
 
 ```

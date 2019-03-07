@@ -2,7 +2,6 @@ class LogEventsGenerator
 
   ONE_MINUTE_AS_SECONDS = 60
   MINUTES_OFFSET = 50
-  TIME_OFFSET = MINUTES_OFFSET * ONE_MINUTE_AS_SECONDS
 
   MAXIMUM_LOG_EVENTS_PER_BATCH = MINUTES_OFFSET - 10
 
@@ -14,8 +13,8 @@ class LogEventsGenerator
     @random = Random.new
   end
 
-  def get_log_events(number_of_log_events, min_value, max_value)
-    start_timestamp_milliseconds = get_start_timestamp_milliseconds
+  def get_log_events(number_of_log_events, starting_minutes_ago, min_value, max_value)
+    start_timestamp_milliseconds = get_start_timestamp_milliseconds(starting_minutes_ago)
     number_of_log_events = [number_of_log_events, MAXIMUM_LOG_EVENTS_PER_BATCH].min
     log_events = 1.upto(number_of_log_events).collect {|n| LogEvent.new(get_next_minute_timestamp(n, start_timestamp_milliseconds), "#{get_message(min_value, max_value)}").to_event}
     {log_stream_name: "synthetic-#{start_timestamp_milliseconds}", log_events: log_events}
@@ -27,8 +26,8 @@ class LogEventsGenerator
     start_timestamp_milliseconds + (n * ONE_MINUTE_AS_SECONDS * 1000)
   end
 
-  def get_start_timestamp_milliseconds
-    (Time.now - TIME_OFFSET).to_i * 1000
+  def get_start_timestamp_milliseconds(starting_minutes_ago)
+    (Time.now - (starting_minutes_ago * ONE_MINUTE_AS_SECONDS)).to_i * 1000
   end
 
   def get_message(min_value, max_value)
