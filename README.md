@@ -1,6 +1,7 @@
 What 
 ---
-Generate some log events based on a text pattern and write them to an AWS CloudWatch log group
+- Generate some log events based on a text pattern and write them to an AWS CloudWatch log group
+- You can run this as a [Docker container](https://cloud.docker.com/repository/docker/kmdemos/send-events-to-cloudwatch)
 
 Motivation 
 ---
@@ -47,15 +48,28 @@ The response from the API call `put_log_events` is printed. This looks like the 
 How (with Docker)
 ---
 
-_Remember_! 
-- Do not check-in credentials into version control or bake into Docker images!!!
+- (optional) build a Docker image locally
 
 ```
+# build the Docker image locally, if you like
 $ docker build . -t send-events-to-cloudwatch
-$ cp env.list.example env.list
 
+```
+
+- Run a Docker container from the publicly-available image 
+    - Please see `env.list.example` that illustrates the environment variables to be configured to run the container
+    - _Remember_! Do NOT check-in credentials into version control or bake into Docker images!!!
+
+```
+# Run the docker container
+
+$ cp env.list.example env.list
 # Edit env.list and provide the values, including AWS credentials, etc.
 
-$ docker run --rm --env-file env.list send-events-to-cloudwatch bundle exec rake put_log_events
+$ docker run \
+    --rm \
+    --env-file env.list \
+    kmdemos:send-events-to-cloudwatch:1.0 \
+    bundle exec rake put_log_events
 
 ```
